@@ -1,0 +1,27 @@
+<h2>Template Driven Form</h2>
+
+<div class="field">
+  <label for="">Name</label>
+  <input type="text" [(ngModel)]="user.name" #name="ngModel" minlength="2" required>
+
+  <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
+
+    <div *ngIf="name.errors?.required">
+      Name is required.
+    </div>
+
+    <div *ngIf="name.errors?.minlength">
+      Name must be at least 2 characters long.
+    </div>
+
+  </div>
+</div>
+
+<div class="field">
+  <label for="">Phone</label>
+  <input type="text" [(ngModel)]="user.phone" #phone="ngModel">
+</div>
+
+<div class="form-control">
+  <button class="btn">Confirm</button>
+</div>
