@@ -19,12 +19,12 @@
       </p>
 
       <p *ngIf="name.errors?.forbiddenWord">
-        Stop saying the word like '{{ name.errors.forbiddenWord.value }}'
+        Stop saying the word like '{{ name.errors?.forbiddenWord.value }}'
       </p>
     </div>
   </div>
 
-  <div class="field">
+  <!-- <div class="field">
     <label for="">phone</label>
 
     <input type="text" id="phone" formControlName="phone" required>
@@ -38,7 +38,7 @@
         phone cannot be Bob.
       </p>
     </div>
-  </div>
+  </div> -->
 
   <div class="form-control">
     <button class="btn" [disabled]="userForm.invalid">Confirm</button>

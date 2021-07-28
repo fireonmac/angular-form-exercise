@@ -42,11 +42,15 @@ h2 {
   margin-bottom: 1rem;
 }
 
-div.alert {
+.field.alert p {
   color: #f00;
 }
 
-input.alert {
+.field input {
+  border-color: none;
+  outline: none;
+}
+.field.alert input {
   border-color: #f00;
 }
 

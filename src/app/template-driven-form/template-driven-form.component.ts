@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm, NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-template-driven-form',
@@ -6,18 +7,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./template-driven-form.component.css']
 })
 export class TemplateDrivenFormComponent implements OnInit {
-  hero = {
-    name: '',
-  }
-
   user = {
     name: '',
-    phone: '',
+    password: '',
   }
+
+  @ViewChild('f') userForm: NgForm;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  isInvalid(control: NgModel | NgForm) {
+    if (control instanceof NgModel) {
+      return control.invalid && (control.dirty || control.touched);
+    }
+    return control.invalid;
+  }
+
+  onSubmit() {
+    this.userForm.reset();
+  }
 }

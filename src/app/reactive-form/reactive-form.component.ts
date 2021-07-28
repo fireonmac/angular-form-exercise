@@ -20,6 +20,10 @@ export class ReactiveFormComponent implements OnInit {
   phone: FormControl;
 
   constructor() {
+
+  }
+
+  ngOnInit(): void {
     this.userForm = new FormGroup({
       name: new FormControl(this.user.name, [
         Validators.required,
@@ -34,9 +38,6 @@ export class ReactiveFormComponent implements OnInit {
 
     this.name = this.userForm.get('name') as FormControl;
     this.phone = this.name.get('phone') as FormControl;
-  }
-
-  ngOnInit(): void {
   }
 
   onSubmit(): void {
