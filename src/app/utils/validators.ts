@@ -44,14 +44,13 @@ export function phoneNumberValidator(countryCode: string) {
 
 export function duplicatedFieldInNeighborFormValidator(formArray: FormArray, fieldName: string) {
   return (control: AbstractControl): ValidationErrors | null => {
-    // * 주의사항: 업데이트하고 다시 평가하는 과정에서 무한 루프가 일어나 validator 함수 안에서 updateValueAndValidity 메서드 사용하기 어려움
+    // * 주의사항: 업데이트하고 다시 평가하는 과정에서 무한 루프가 일어나 validator 함수 안에서 updateValueAndValidity 메서드 사용할 조건을 만들기 어려움
 
     // 1. 모든 이름 필드를 순회하면서 이름을 확인 (v)
-    // 2. 이름, 번호 매칭하는 객체 생성 (v)
-    // 3. 1개에서 2개가 될 때 먼저 작성된 필드를 찾아서 다시 업데이트 (v)
-    // 4. 2개에서 1개가 될 때 남아있는 인풋의 에러를 제거 (v)
-    // 5. 중복 에러가 있는 상태에서 새로운 에러가 나타났을때 기존 에러의 값이 전부 바뀌는 현상 수정 (v)
-    // 6. 현재 필드 값이 없는 경우에는 바로 리턴을 함, 따라서 한 글자만 입력했을 때 중복이 일어나면 4번의 2개 -> 1개 문제가 다시 일어남 (-)
+    // 2. 이름, 번호 매칭하는 객체 생성 { 'paul': 2, 'su': 3 } (v)
+    // 3. 중복되는 값이 1개에서 2개가 될 때 먼저 작성된 필드를 찾아서 다시 업데이트 (v)
+    // 4. 중복되는 값이 2개에서 1개가 될 때 남아있는 인풋의 에러를 제거 (v)
+    // 5. 현재 필드 값이 없는 경우에는 바로 리턴을 함, 따라서 한 글자만 입력했을 때 중복이 일어나면 4번의 2개 -> 1개 문제가 다시 일어남 (v)
 
     const currentValue = preventNullWithEmptyString(control.value);
 
@@ -59,11 +58,9 @@ export function duplicatedFieldInNeighborFormValidator(formArray: FormArray, fie
       const fControl = form.get(fieldName) as FormControl;
       const name = preventNullWithEmptyString(fControl.value) as string;
 
-      // 현재 수정 중인 인풋은 control과 fControl의 값이 싱크가 안되서 현재 값을 미리 넣어주고 카운트에서 스킵
-      if (idx === 0) {
-        acc[currentValue] = 1;
-      }
-      if (fControl === control) { return acc; }
+      // 입력 중인 인풋은 값이 싱크가 안되어서 최신 값을 미리 넣어주고 루프에서 스킵
+      if (idx === 0) acc[currentValue] = 1;
+      if (fControl === control) return acc;
 
       if (!acc[name]) {
         acc[name] = 1;
@@ -85,6 +82,7 @@ export function duplicatedFieldInNeighborFormValidator(formArray: FormArray, fie
       }
     }
 
+    // setErrors 메서드를 통해 대상이 되는 필드 전체를 순회하며 직접 error를 처리
     formArray.controls.forEach(form => {
       const fControl = form.get(fieldName) as FormControl;
       const fValue = preventNullWithEmptyString(fControl.value) as string;
@@ -119,7 +117,7 @@ export function duplicatedFieldInNeighborFormValidator(formArray: FormArray, fie
     });
 
     // 글자가 없는 경우 맨 위에서 중복 처리를 하지 않기 위해 맨 위에 두었던 코드
-    // 한 글자 중복에서 글자를 지우는 경우 4번 문제(2개 -> 1개 문제)를 처리를 해주어야해서 아래로 옮김
+    // 한 글자 중복에서 글자를 지우는 경우 ('a' -> '') 4번 문제(2개 -> 1개 문제)를 처리를 해주어야해서 아래로 옮김
     if (!currentValue) { return null; }
 
     return namesCountObj[currentValue] >= 2 ? { duplicated: { value: currentValue } } : null;

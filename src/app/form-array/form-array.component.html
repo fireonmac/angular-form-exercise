@@ -13,10 +13,19 @@
         </div>
       </header>
 
-      <app-form-field [control]="user.get('name')" [fieldName]="'name'"
-        [validators]="['required', 'minlength', 'forbiddenWord', 'duplicated']"></app-form-field>
+      <app-form-field
+        [control]="user.get('name')"
+        [fieldName]="'name'"
+        [validators]="['required', 'minlength', 'forbiddenWord', 'duplicated']"
+      >
+      </app-form-field>
 
-      <app-form-field [control]="user.get('password')" [fieldName]="'password'" [validators]="['required', 'minlength']" [type]="'password'">
+      <app-form-field
+        [control]="user.get('password')"
+        [fieldName]="'password'"
+        [validators]="['required', 'minlength']"
+        [type]="'password'"
+      >
       </app-form-field>
 
     </div>
@@ -25,7 +34,7 @@
 
 
   <div class="form-control">
-    <button class="btn" (click)="addUserFields()">Add User</button>
+    <button class="btn" (click)="addUser()">Add User</button>
     <button class="btn" [disabled]="usersForm.invalid" (click)="confirm()">Confirm</button>
   </div>
 
@@ -33,7 +42,7 @@
   <div class="form-submit-result" *ngIf="result">
     <div *ngFor="let row of result" class="result-row">
       <div><b>Name:</b> {{ row.name }}</div>
-      <div><b>Password: </b> {{ row.password.slice(0, 3) + '*'.repeat(row.password.length - 3) }}</div>
+      <div><b>Password: </b> {{ getSealedPassword(row.password) }}</div>
     </div>
   </div>
 
