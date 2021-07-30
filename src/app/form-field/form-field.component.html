@@ -1,7 +1,7 @@
 <div class="field" [ngClass]="isInvalid(control) ? 'alert': ''">
 
   <label>{{ fieldName | titlecase }}</label>
-  <input type="text" [formControl]="control">
+  <input type="{{ type ? type : 'text' }}" [formControl]="control">
   <div *ngIf="isInvalid(control)" class="field__error-message">
 
     <p *ngIf="control.errors.required">
@@ -12,11 +12,11 @@
     </p>
 
     <p *ngIf="validators.includes('forbiddenWord') && control.errors.forbiddenWord">
-      Don't use a word like '{{ control.errors.forbiddenWord.value }}'
+      Don't use a word like '{{ control.errors.forbiddenWord.value }}'.
     </p>
 
-    <p *ngIf="validators.includes('duplicated') && control.errors.duplicated">
-      The {{ fieldName }} '{{ control.errors.duplicated.value }}' is duplicated
+    <p *ngIf="validators.includes('duplicated') && control.errors.duplicated && control.errors.duplicated.value">
+      The {{ fieldName }} '{{ control.errors.duplicated.value.trim() }}' is duplicated.
     </p>
   </div>
 

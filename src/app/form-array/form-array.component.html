@@ -16,7 +16,7 @@
       <app-form-field [control]="user.get('name')" [fieldName]="'name'"
         [validators]="['required', 'minlength', 'forbiddenWord', 'duplicated']"></app-form-field>
 
-      <app-form-field [control]="user.get('password')" [fieldName]="'password'" [validators]="['required', 'minlength']">
+      <app-form-field [control]="user.get('password')" [fieldName]="'password'" [validators]="['required', 'minlength']" [type]="'password'">
       </app-form-field>
 
     </div>

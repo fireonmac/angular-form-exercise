@@ -48,7 +48,7 @@ export class FormArrayComponent implements OnInit {
 
   addUserFields(): void {
     const user = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2), forbiddenWordsValidator(ABUSES), duplicatedFieldInNeighborFormValidator(this.users, 'name')]],
+      name: ['', [Validators.required, Validators.minLength(3), forbiddenWordsValidator(ABUSES), duplicatedFieldInNeighborFormValidator(this.users, 'name')]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     })
 

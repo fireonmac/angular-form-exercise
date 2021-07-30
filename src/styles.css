@@ -44,6 +44,7 @@ h2 {
 
 .field.alert p {
   color: #f00;
+  font-size: 0.75em;
 }
 
 .field input {
@@ -52,6 +53,7 @@ h2 {
 }
 .field.alert input {
   border-color: #f00;
+  background-color: #ffefef;
 }
 
 .form-control {

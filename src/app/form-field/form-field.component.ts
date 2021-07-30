@@ -10,6 +10,7 @@ export class FormFieldComponent implements OnInit {
   @Input() fieldName: string;
   @Input() control: any;
   @Input() validators: string[];
+  @Input() type: string;
 
   constructor() { }
 
