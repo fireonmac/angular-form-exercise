@@ -10,14 +10,9 @@ import { forbiddenNameValidator, forbiddenWordsValidator, phoneNumberValidator }
   styleUrls: ['./reactive-form.component.css']
 })
 export class ReactiveFormComponent implements OnInit {
-  user = {
-    name: '',
-    phone: '',
-  };
-
   userForm: FormGroup;
   name: FormControl;
-  phone: FormControl;
+  password: FormControl;
 
   constructor() {
 
@@ -25,24 +20,31 @@ export class ReactiveFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.userForm = new FormGroup({
-      name: new FormControl(this.user.name, [
+      name: new FormControl('', [
         Validators.required,
         Validators.minLength(2),
-        forbiddenNameValidator(/bob/i),
+        forbiddenNameValidator(/admin/ig),
         forbiddenWordsValidator(ABUSES)
       ]),
-      phone: new FormControl(this.user.phone, [
-        phoneNumberValidator('kr'),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6)
       ])
     });
 
     this.name = this.userForm.get('name') as FormControl;
-    this.phone = this.name.get('phone') as FormControl;
+    this.password = this.userForm.get('password') as FormControl;
+  }
+
+  isInvalid(control: FormControl | FormGroup) {
+    if (control instanceof FormGroup) {
+      return control.invalid;
+    }
+
+    return control.invalid && (control.dirty || control.touched);
   }
 
   onSubmit(): void {
-    console.log(this.userForm.value);
-
     this.userForm.reset();
   }
 }

@@ -1,1 +1,1 @@
-export const ABUSES = ['fuck', 'asshole', 'moron'].sort();
+export const ABUSES = ['fuck', 'asshole', 'moron', 'jerk'].sort();

@@ -1,0 +1,23 @@
+<div class="field" [ngClass]="isInvalid(control) ? 'alert': ''">
+
+  <label>{{ fieldName | titlecase }}</label>
+  <input type="text" [formControl]="control">
+  <div *ngIf="isInvalid(control)" class="field__error-message">
+
+    <p *ngIf="control.errors.required">
+      {{ fieldName | titlecase }} is required.
+    </p>
+    <p *ngIf="validators.includes('minlength') && control.errors.minlength">
+      {{ fieldName | titlecase }} must be at least {{ control.errors.minlength.requiredLength }} charaters long.
+    </p>
+
+    <p *ngIf="validators.includes('forbiddenWord') && control.errors.forbiddenWord">
+      Don't use a word like '{{ control.errors.forbiddenWord.value }}'
+    </p>
+
+    <p *ngIf="validators.includes('duplicated') && control.errors.duplicated">
+      The {{ fieldName }} '{{ control.errors.duplicated.value }}' is duplicated
+    </p>
+  </div>
+
+</div>

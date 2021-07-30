@@ -1,12 +1,12 @@
 <h2>Reactive Form</h2>
 
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-  <div class="field">
+  <div class="field" [ngClass]="isInvalid(name) ? 'alert' : ''">
     <label for="">Name</label>
 
     <input type="text" id="name" class="field" formControlName="name" required>
 
-    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+    <div *ngIf="isInvalid(name)">
 
       <p *ngIf="name.errors?.required">
         Name is required.
@@ -15,30 +15,32 @@
         Name must be at least 4 characters long.
       </p>
       <p *ngIf="name.errors?.forbiddenName">
-        Name cannot be Bob.
+        '{{ name.value }}' can't be included in your name.
       </p>
 
       <p *ngIf="name.errors?.forbiddenWord">
-        Stop saying the word like '{{ name.errors?.forbiddenWord.value }}'
+        Don't use a word like '{{ name.errors?.forbiddenWord.value }}'
       </p>
     </div>
   </div>
 
-  <!-- <div class="field">
-    <label for="">phone</label>
+  <div class="field" [ngClass]="isInvalid(password) ? 'alert' : ''">
+    <label for="password">Password</label>
 
-    <input type="text" id="phone" formControlName="phone" required>
+    <input type="password" id="password" formControlName="password" required>
 
-    <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger">
+    <div *ngIf="isInvalid(password)">
 
-      <p *ngIf="phone.errors?.required">
-        phone number is required.
+      <p *ngIf="password.errors?.required">
+        Password is required.
       </p>
-      <p *ngIf="phone.errors?.forbiddenphone">
-        phone cannot be Bob.
+
+      <p *ngIf="password.errors?.minlength">
+        Password must be at least 6 characeters long.
       </p>
+
     </div>
-  </div> -->
+  </div>
 
   <div class="form-control">
     <button class="btn" [disabled]="userForm.invalid">Confirm</button>

@@ -7,7 +7,7 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  padding-top: 2rem;
+  padding: 2rem 0;
 }
 
 .container {
@@ -18,7 +18,7 @@ body {
 }
 
 
-.field:not(:last-child) {
+.field {
   margin-bottom: 0.5rem;
 }
 
@@ -58,6 +58,17 @@ h2 {
   margin-top: 1rem;
 }
 
+.close-btn {
+  border: 2px solid #000;
+  width: 1.5rem;
+  height: 1.5rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
 .btn {
   background-color: transparent;
   padding: 0.5rem 1rem;
@@ -70,4 +81,33 @@ h2 {
 
 .btn:disabled {
   background-color: #efefef;
+}
+
+.user-fields {
+  padding: 1rem;
+  border: 1px solid #000;
+}
+
+.user-fields header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.form-control .btn:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.user-fields:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.form-submit-result {
+  background-color: #f3f3f3;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.result-row {
+  padding: 0.35rem 0;
 }
